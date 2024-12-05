@@ -10,12 +10,9 @@ return new class extends Migration
     {
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
-            $table->string('name');        // Nama latihan
-            $table->text('description')->nullable();
-            $table->foreignId('category_id')->constrained('exercise_categories');
-            $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
+            $table->string('name');
+            $table->foreignId('category_id')->constrained('exercise_categories')->onDelete('cascade');
             $table->text('instructions')->nullable();
-            $table->string('image_url')->nullable();
             $table->timestamps();
         });
     }

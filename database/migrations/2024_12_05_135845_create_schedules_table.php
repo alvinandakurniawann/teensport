@@ -11,11 +11,9 @@ return new class extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('workout_id')->constrained()->onDelete('cascade');
-            $table->enum('day_of_week', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+            $table->enum('day', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
             $table->time('start_time');
-            $table->time('end_time')->nullable();
-            $table->boolean('is_completed')->default(false);
+            $table->enum('workout_type', ['push', 'pull', 'legs']);
             $table->timestamps();
         });
     }

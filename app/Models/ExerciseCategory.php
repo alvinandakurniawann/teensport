@@ -2,15 +2,19 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class ExerciseCategory extends Model
 {
+    use HasFactory;
+
+    protected $table = 'exercise_categories';
+    
     protected $fillable = [
         'name',
-        'description',
-        'icon'
+        'description'
     ];
 
     public function exercises(): HasMany

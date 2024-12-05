@@ -11,10 +11,8 @@ return new class extends Migration
         Schema::create('workouts', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->enum('type', ['push', 'pull', 'legs']);
             $table->text('description')->nullable();
-            $table->enum('type', ['pull_day', 'push_day', 'leg_day']);
-            $table->foreignId('user_id')->constrained();
-            $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->timestamps();
         });
     }

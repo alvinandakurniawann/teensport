@@ -10,9 +10,8 @@ return new class extends Migration
     {
         Schema::create('exercise_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('name');        // Nama kategori (Legs, Arms, Back dll)
-            $table->text('description')->nullable();
-            $table->string('icon')->nullable();
+            $table->string('name'); // chest, back, legs, shoulders, etc
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }
@@ -22,6 +21,3 @@ return new class extends Migration
         Schema::dropIfExists('exercise_categories');
     }
 };
-
-
-

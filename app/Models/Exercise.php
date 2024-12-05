@@ -2,24 +2,24 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Exercise extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'name',
-        'description',
         'category_id',
-        'difficulty_level',
-        'instructions',
-        'image_url'
+        'instructions'
     ];
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ExerciseCategory::class);
+        return $this->belongsTo(ExerciseCategory::class, 'category_id');
     }
 
     public function workouts(): BelongsToMany
