@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Select;
 
 class WorkoutResource extends Resource
 {
@@ -75,6 +76,17 @@ class WorkoutResource extends Resource
                             ->createItemButtonLabel('Add Exercise')
                     ])
             ]);
+    }
+
+    protected function getFormSchema(): array
+    {
+        return [
+            Select::make('exercises')
+                ->multiple()
+                ->relationship('exercises', 'name')
+                ->preload()
+                ->required(),
+        ];
     }
 
     public static function table(Tables\Table $table): Tables\Table
