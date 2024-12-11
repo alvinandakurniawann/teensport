@@ -28,44 +28,36 @@ class AuthController extends Controller
             'gender' => $request->gender
         ]);
 
-        $token = $user->createToken('auth_token')->plainTextToken;
-
         return response()->json([
             'user' => $user,
-            'token' => $token
+            'message' => 'Registration successful'
         ], 201);
     }
 
     public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ]);
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
 
-    $user = User::where('email', $request->email)->first();
+        $user = User::where('email', $request->email)->first();
 
-    if (!$user || !Hash::check($request->password, $user->password)) {
+        if (!$user || !Hash::check($request->password, $user->password)) {
+            return response()->json([
+                'message' => 'Invalid credentials'
+            ], 401);
+        }
+
         return response()->json([
-            'message' => 'Invalid credentials'
-        ], 401);
+            'user' => $user,
+            'message' => 'Login successful'
+        ], 200);
     }
-
-    // Hapus token lama jika ada
-    $user->tokens()->delete();
-
-    $token = $user->createToken('auth_token')->plainTextToken;
-
-    return response()->json([
-        'user' => $user,
-        'token' => $token,
-        'token_type' => 'Bearer'
-    ]);
-}
 
     public function logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
+        // Implement your logout logic here
         return response()->json(['message' => 'Successfully logged out']);
     }
 }

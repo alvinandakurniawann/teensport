@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
-use Filament\Models\Contracts\FilamentUser;
-use Filament\Panel;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Contracts\FilamentUser;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use Notifiable;
 
-    // app/Models/User.php
     protected $fillable = [
         'name',
         'email',
         'password',
-        'is_admin'
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -29,11 +25,11 @@ class User extends Authenticatable implements FilamentUser
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'is_admin' => 'boolean',
     ];
 
-    public function canAccessPanel(Panel $panel): bool
+    public function canAccessPanel(): bool
     {
-        return $this->is_admin; // Atau tambahkan logika untuk membatasi akses admin
-        // Contoh: return $this->email === 'admin@example.com';
+        return $this->is_admin;
     }
 }

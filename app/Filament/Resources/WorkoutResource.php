@@ -98,8 +98,10 @@ class WorkoutResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+                // Fix: Change relationship filter to use a callback for proper joining
                 Tables\Filters\SelectFilter::make('user')
-                    ->relationship('user', 'name'),
+                    ->relationship('user', 'name')
+                    ->searchable(),
                 Tables\Filters\SelectFilter::make('type')
                     ->options([
                         'pull_day' => 'Pull Day',

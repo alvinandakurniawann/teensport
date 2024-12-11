@@ -4,21 +4,18 @@ use Illuminate\Support\Str;
 
 return [
     'driver' => env('SESSION_DRIVER', 'file'),
-    'lifetime' => env('SESSION_LIFETIME', 120),
+    'lifetime' => env('SESSION_LIFETIME', 120), // Decrease session lifetime
     'expire_on_close' => false,
     'encrypt' => false,
     'files' => storage_path('framework/sessions'),
-    'connection' => env('SESSION_CONNECTION'),
+    'connection' => null,
     'table' => 'sessions',
-    'store' => env('SESSION_STORE'),
+    'store' => null,
     'lottery' => [2, 100],
-    'cookie' => env(
-        'SESSION_COOKIE',
-        Str::slug(env('APP_NAME', 'laravel'), '_').'_session'
-    ),
+    'cookie' => 'laravel_session',
     'path' => '/',
-    'domain' => env('SESSION_DOMAIN', null),
-    'secure' => env('SESSION_SECURE_COOKIE'),
+    'domain' => null, // Changed to null for local development
+    'secure' => false, // Changed to false for HTTP
     'http_only' => true,
-    'same_site' => 'lax',
+    'same_site' => null, // Changed to null for debugging
 ];
